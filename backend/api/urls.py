@@ -1,9 +1,11 @@
 from django.urls import path
 
-from .views import (
+from .views.model_views import (
     BandListCreate,
     FestivalListCreate,
     FestivalDetails,
+)
+from .views.auth_views import (
     RegisterUser,
     LoginUser,
     logout_user,

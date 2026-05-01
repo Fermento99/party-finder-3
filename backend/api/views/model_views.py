@@ -4,12 +4,12 @@ from ..models import Festival, Band
 from ..serializers import FestivalSerializer, BandSerializer
 
 
-class FestivalListCreate(generics.ListCreateAPIView):
+class FestivalList(generics.ListAPIView):
     queryset = Festival.objects.all()
     serializer_class = FestivalSerializer
 
 
-class BandListCreate(generics.ListCreateAPIView):
+class BandList(generics.ListAPIView):
     queryset = Band.objects.all()
     serializer_class = BandSerializer
 

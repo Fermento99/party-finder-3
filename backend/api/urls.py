@@ -1,8 +1,8 @@
 from django.urls import path
 
 from .views.model_views import (
-    BandListCreate,
-    FestivalListCreate,
+    BandList,
+    FestivalList,
     FestivalDetails,
 )
 from .views.auth_views import (
@@ -12,8 +12,9 @@ from .views.auth_views import (
 )
 
 urlpatterns = [
-    path("bands/", BandListCreate.as_view()),
-    path("festivals/", FestivalListCreate.as_view()),
+    # models
+    path("bands/", BandList.as_view()),
+    path("festivals/", FestivalList.as_view()),
     path("festivals/<int:id>/", FestivalDetails.as_view()),
     path("auth/register/", RegisterUser.as_view()),
     path("auth/login/", LoginUser.as_view()),

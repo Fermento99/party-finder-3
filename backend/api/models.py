@@ -32,5 +32,12 @@ class BandEntry(models.Model):
     band = models.ForeignKey(Band, on_delete=models.CASCADE)
     grade = models.IntegerField()
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "band"], name="unique_user_band"
+            )
+        ]
+
     def __str__(self):
         return f"[{self.user.username}] - {self.band.name} ({self.band.festival.name} {self.band.festival.year}): {self.grade}"

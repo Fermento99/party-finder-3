@@ -1,6 +1,7 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 
-from .models import Band, Festival
+from .models import Band, Festival, BandEntry
 
 
 class BandSerializer(serializers.ModelSerializer):
@@ -10,17 +11,27 @@ class BandSerializer(serializers.ModelSerializer):
 
 
 class FestivalSerializer(serializers.ModelSerializer):
-    bands = serializers.SerializerMethodField()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if type(self.context["view"]).__name__ != "FestivalDetails":
-            self.fields.pop("bands")
 
     class Meta:
         model = Festival
         fields = "__all__"
 
-    def get_bands(self, obj):
-        bands = Band.objects.filter(festival_id=obj.id)
-        return [BandSerializer(band).data for band in bands]
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "last_login", "date_joined", "is_active"]
+
+
+class BandEntrySerializer(serializers.ModelSerializer):
+    band = BandSerializer()
+    user = UserSerializer()
+
+    class Meta:
+        model = BandEntry
+        fields = ["band", "user", "grade"]
+
+
+class BandListSerializer(serializers.Serializer):
+    festival = FestivalSerializer()
+    user = UserSerializer()

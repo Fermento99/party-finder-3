@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Festival(models.Model):
@@ -24,3 +25,12 @@ class Band(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.festival.name})"
+
+
+class BandEntry(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    band = models.ForeignKey(Band, on_delete=models.CASCADE)
+    grade = models.IntegerField()
+
+    def __str__(self):
+        return f"[{self.user.username}] - {self.band.name} ({self.band.festival.name} {self.band.festival.year}): {self.grade}"

@@ -27,6 +27,12 @@ class FestivalDetails(generics.RetrieveAPIView):
     lookup_field = "id"
 
 
+class FestivalBandsList(generics.ListAPIView):
+    queryset = Band.objects.all()
+    serializer_class = BandSerializer
+    lookup_field = "band__festival_id"
+
+
 class UsersList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

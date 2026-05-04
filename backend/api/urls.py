@@ -8,6 +8,7 @@ from .views.model_views import (
     UserDetails,
     UserBandListView,
     FestivalBandListView,
+    FestivalBandsList,
     BandListDetails,
 )
 from .views.auth_views import (
@@ -25,6 +26,7 @@ urlpatterns = [
     path("festivals/", FestivalList.as_view()),
     path("festivals/<int:id>/", FestivalDetails.as_view()),
     path("festivals/<int:band__festival_id>/lists", FestivalBandListView.as_view()),
+    path("festivals/<int:festival_id>/bands", FestivalBandsList.as_view()),
     path("users/", UsersList.as_view()),
     path("users/<int:id>/", UserDetails.as_view()),
     path("users/<int:user_id>/lists/", UserBandListView.as_view()),
